@@ -10,6 +10,7 @@
 * SCK -> 14
 * LED -> 23
 * SDO/MOSI -> 12
+
 *When using touchscreen, also need*
 * T_CLK -> 25
 * T_CS -> 33
