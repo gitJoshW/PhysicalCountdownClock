@@ -13,13 +13,13 @@ Wanted to have a visual display for the family to see how long until our next va
 The RTC is to ensure the time is maintained when it isn't connected to power
 
 ## Next Steps:
-Hardware
+### Hardware
 * Convert from breadboard to perfboard so it will fit into a smaller enclosure
 * Buy or make enclosure
 * Add an on/off switch
 * Consider the combined ESP32 & TouchScreen for a slimmer overall profile (the combined ones I've found don't seem to give you full pin access to the ESP32, so not sure how to wire the RTC in)
 
-Software
+### Software
 * Add additional background images that rotate every so often
 * Better font
 * Leverage the touchscreen interface to allow a user to set a new event or set the current time (currently the only way to reset the current time would be to reconnect it to the computer and recompile the program)
