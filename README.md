@@ -1,6 +1,6 @@
 # Physical Countdown Clock
 
-Wanted to have a visual display for the family to see how long until our next vacation. Leveraged a combination of ChatGPT and online tutorials, especially quite a few from https://randomnerdtutorials.com/ to get this working. I had to modify one of the .h files that I downloaded to allow for the right pin access between all the parts.
+Wanted to have a visual display for the family to see how long until our next vacation. Leveraged a combination of ChatGPT and online tutorials, especially quite a few from https://randomnerdtutorials.com/ to get this working. I had to modify one of the .h files that I downloaded (User_Setup.h from Random Nerd Tutorials - on line 142, I changed "#define TFT_BL   21" to "#define TFT_BL   23") to allow for the right pin access between all the parts.
 
 <img width="729" height="968" alt="image" src="https://github.com/user-attachments/assets/d67fd0ac-2847-4468-87c2-2105d9f7ad7c" />
 
