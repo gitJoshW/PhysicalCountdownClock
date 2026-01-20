@@ -20,7 +20,9 @@ The RTC is to ensure the time is maintained when it isn't connected to power
 * Consider the combined ESP32 & TouchScreen for a slimmer overall profile (the combined ones I've found don't seem to give you full pin access to the ESP32, so not sure how to wire the RTC in)
 
 ### Software
-* Add additional background images that rotate every so often
+* ~Add additional background images that rotate every so often~
+  * Rotates on click
+  * To Do: Upload at least 3 relevant images   
 * Better font
 * Leverage the touchscreen interface to allow a user to set a new event or set the current time (currently the only way to reset the current time would be to reconnect it to the computer and recompile the program)
-* Consider using batter power instead of needing to be plugged in?
+* Consider using battery power instead of needing to be plugged in?
