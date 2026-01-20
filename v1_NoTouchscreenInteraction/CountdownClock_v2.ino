@@ -1,11 +1,4 @@
-/*  Rui Santos & Sara Santos - Random Nerd Tutorials
-    THIS EXAMPLE WAS TESTED WITH THE FOLLOWING HARDWARE:
-    1) ESP32-2432S028R 2.8 inch 240×320 also known as the Cheap Yellow Display (CYD): https://makeradvisor.com/tools/cyd-cheap-yellow-display-esp32-2432s028r/
-      SET UP INSTRUCTIONS: https://RandomNerdTutorials.com/cyd/
-    2) REGULAR ESP32 Dev Board + 2.8 inch 240x320 TFT Display: https://makeradvisor.com/tools/2-8-inch-ili9341-tft-240x320/ and https://makeradvisor.com/tools/esp32-dev-board-wi-fi-bluetooth/
-      SET UP INSTRUCTIONS: https://RandomNerdTutorials.com/esp32-tft/
-    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
-    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+/*  While this is my own project, I heavily leaned on combining a few tutorials from Rui Santos & Sara Santos - Random Nerd Tutorials
 */
 
 #include <SPI.h>
@@ -15,9 +8,9 @@
 
 #include <RTClib.h>
 #include <image_small.h>
-#include <image.h>
 
 RTC_DS3231 rtc;
+char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
 TFT_eSPI tft = TFT_eSPI();
 
@@ -38,26 +31,19 @@ XPT2046_Touchscreen touchscreen(XPT2046_CS, XPT2046_IRQ);
 #define DRAW_BUF_SIZE (SCREEN_WIDTH * SCREEN_HEIGHT / 10 * (LV_COLOR_DEPTH / 8))
 uint32_t draw_buf[DRAW_BUF_SIZE / 4];
 
-LV_IMAGE_DECLARE(my_image);
-LV_IMAGE_DECLARE(image_small);
 
-lv_obj_t * img1;
-lv_obj_t * img2;
-lv_obj_t *img_bg;
+
 lv_obj_t * label; 
-int currentImgNum;
 
 //Set Countdown Date
 DateTime target = DateTime(2026, 2, 12, 0, 0, 0);
 
-//Prevent screen from registering too many events per second
-unsigned long previousMillis = 0;
-const long interval = 500; // Update every half second
 
 void draw_image(void) {
-  img_bg = lv_image_create(lv_screen_active());
-  lv_image_set_src(img_bg, &image_small);
-  lv_obj_align(img_bg, LV_ALIGN_CENTER, 0, 0);
+  LV_IMAGE_DECLARE(image_small);
+  lv_obj_t * img1 = lv_image_create(lv_screen_active());
+  lv_image_set_src(img1, &image_small);
+  lv_obj_align(img1, LV_ALIGN_CENTER, 0, 0);
   
   //adding a label on the text
   label = lv_label_create(lv_screen_active());
@@ -72,7 +58,7 @@ void draw_image(void) {
 
   lv_label_set_text(label, "");
 
-  lv_obj_align(img_bg, LV_ALIGN_CENTER, 0, 0);
+  lv_obj_align(img1, LV_ALIGN_CENTER, 0, 0);
   lv_obj_align(label, LV_ALIGN_CENTER, 0, -60);
   
 }
@@ -87,7 +73,6 @@ void setup() {
     Serial.flush();
     while (1) delay(10);
   }
-  currentImgNum = 1;
 
   // Start the SPI for the touchscreen and init the touchscreen
   touchscreenSPI.begin(XPT2046_CLK, XPT2046_MISO, XPT2046_MOSI, XPT2046_CS);
@@ -124,20 +109,8 @@ void setup() {
 
 }
 
-void updateBackground(int imageNum) {
-  if(imageNum == 1) {
-    lv_image_set_src(img_bg, &image_small);
-    lv_obj_align(img_bg, LV_ALIGN_CENTER, 0, 0);
-  }
-  else if(imageNum == 2) {
-    lv_image_set_src(img_bg, &my_image);
-    lv_obj_align(img_bg, LV_ALIGN_CENTER, 0, 0);    
-  }
-}
-
 void loop() {
-
-    unsigned long currentMillis = millis();    
+    
 
     // Get the current time from the RTC
     DateTime now = rtc.now();
@@ -151,25 +124,10 @@ void loop() {
 
     String formattedDif = "Only \n" + difStr + " days, \n" + difHoursStr + " hours, \n" + difMinStr + " minutes, \n" + difSecStr + " seconds until \n ARUBA!";
 
-    if (touchscreen.tirqTouched() && touchscreen.touched()) {
-      if (currentMillis - previousMillis >= interval) {
-        previousMillis = currentMillis;
-
-        if(currentImgNum == 1) {
-          updateBackground(2);
-          currentImgNum = 2;
-        }
-        else if(currentImgNum == 2) {
-          updateBackground(1);
-          currentImgNum = 1;
-        }
-      }
-    }
-
     lv_label_set_text(label, formattedDif.c_str());
     lv_obj_set_style_text_align(label, LV_TEXT_ALIGN_CENTER, 0);
     lv_obj_center(label);
     lv_task_handler();  // let the GUI do its work
-    lv_tick_inc(5);     // tell LVGL how much time has passed
-    delay(5);
+    lv_tick_inc(10);     // tell LVGL how much time has passed
+    delay(10);
 }
