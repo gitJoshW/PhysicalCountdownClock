@@ -1,11 +1,4 @@
-/*  Rui Santos & Sara Santos - Random Nerd Tutorials
-    THIS EXAMPLE WAS TESTED WITH THE FOLLOWING HARDWARE:
-    1) ESP32-2432S028R 2.8 inch 240×320 also known as the Cheap Yellow Display (CYD): https://makeradvisor.com/tools/cyd-cheap-yellow-display-esp32-2432s028r/
-      SET UP INSTRUCTIONS: https://RandomNerdTutorials.com/cyd/
-    2) REGULAR ESP32 Dev Board + 2.8 inch 240x320 TFT Display: https://makeradvisor.com/tools/2-8-inch-ili9341-tft-240x320/ and https://makeradvisor.com/tools/esp32-dev-board-wi-fi-bluetooth/
-      SET UP INSTRUCTIONS: https://RandomNerdTutorials.com/esp32-tft/
-    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
-    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+/* Heavily leveraged examples from Rui Santos & Sara Santos - Random Nerd Tutorials
 */
 
 #include <SPI.h>
@@ -15,7 +8,7 @@
 
 #include <RTClib.h>
 #include <image_small.h>
-#include <image.h>
+#include <planeOverShip.h>
 
 RTC_DS3231 rtc;
 
@@ -38,13 +31,11 @@ XPT2046_Touchscreen touchscreen(XPT2046_CS, XPT2046_IRQ);
 #define DRAW_BUF_SIZE (SCREEN_WIDTH * SCREEN_HEIGHT / 10 * (LV_COLOR_DEPTH / 8))
 uint32_t draw_buf[DRAW_BUF_SIZE / 4];
 
-LV_IMAGE_DECLARE(my_image);
+LV_IMAGE_DECLARE(planeOverShip);
 LV_IMAGE_DECLARE(image_small);
 
-lv_obj_t * img1;
-lv_obj_t * img2;
 lv_obj_t *img_bg;
-lv_obj_t * label; 
+lv_obj_t *label; 
 int currentImgNum;
 
 //Set Countdown Date
@@ -130,7 +121,7 @@ void updateBackground(int imageNum) {
     lv_obj_align(img_bg, LV_ALIGN_CENTER, 0, 0);
   }
   else if(imageNum == 2) {
-    lv_image_set_src(img_bg, &my_image);
+    lv_image_set_src(img_bg, &planeOverShip);
     lv_obj_align(img_bg, LV_ALIGN_CENTER, 0, 0);    
   }
 }
