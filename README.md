@@ -22,7 +22,8 @@ The RTC is to ensure the time is maintained when it isn't connected to power
 ### Software
 * ~Add additional background images that rotate every so often~
   * Rotates on click
-  * To Do: Upload at least 3 relevant images   
+  * To Do: Upload at least 3 relevant images
+   * For the images I'm currently attempting, 3 files takes more memory than the ESP has. Would have to determine out how to use the SD card slot to leverage.    
 * Better font
 * Leverage the touchscreen interface to allow a user to set a new event or set the current time (currently the only way to reset the current time would be to reconnect it to the computer and recompile the program)
 * Consider using battery power instead of needing to be plugged in?
