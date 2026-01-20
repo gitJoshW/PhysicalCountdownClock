@@ -26,3 +26,6 @@ The RTC is to ensure the time is maintained when it isn't connected to power
 * Better font
 * Leverage the touchscreen interface to allow a user to set a new event or set the current time (currently the only way to reset the current time would be to reconnect it to the computer and recompile the program)
 * Consider using battery power instead of needing to be plugged in?
+
+## Misc Notes
+* To convert a current image you have to the array needed by the .h files, you can leverage https://lvgl.io/tools/imageconverter and select ARGB8888 from the dropdown
