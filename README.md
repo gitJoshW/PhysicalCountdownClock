@@ -30,3 +30,8 @@ The RTC is to ensure the time is maintained when it isn't connected to power
 
 ## Misc Notes
 * To convert a current image you have to the array needed by the .h files, you can leverage https://lvgl.io/tools/imageconverter and select ARGB8888 from the dropdown
+* Learnings from first 2 phases:
+ * The way I've wired the RTC, ESP32, and Display together make them take up far more space than I'd like. I might consider removing the RTC to take up less space. That opens up using the CYD that already combines the ESP32 and screen.
+  * The main problem with this is that if the device loses power, the only way to know the time is with Wifi or forcing the user to manually type it back in (once we have that interface).
+ * Also, the 2.4" display is too small for a countertop design
+ * Consider battery power. Maybe even a rechargeable USB power source that plugs into the CYD and runs off that, but the user can plug in and recharge whenever battery gets low
